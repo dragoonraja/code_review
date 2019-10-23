@@ -32,18 +32,16 @@ public class SplitArray {
 	 * expensive. The space complexity of this algorithm is O(1) because we are not
 	 * using any additional data structure.
 	 */
-	public void SplitSorting(int array[]) {
-		boolean flag = true;
-		while (flag)
-		{
-			flag = false;
-			for (int j = 0; j < array.length - 1; j++)
-			{
-				if (array[j] > array[j + 1])
-				{
+	public void SplitSorting(int[] array) {
+		boolean isContinueLoop = true;
+		
+		while (isContinueLoop) {
+			isContinueLoop = false;
+			
+			for (int j = 0; j < array.length - 1; j++) {
+				if (array[j] > array[j + 1]) {
 					Swap(array, j, j + 1);
-					// System.out.println("flag=" + flag);
-					flag = true;
+					isContinueLoop = true;
 				}
 			}
 		}
@@ -59,20 +57,20 @@ public class SplitArray {
 	public void SplitSwappingIterative(int array[]) {
 		int left = 0;
 		int right = array.length - 1;
-		while (left < right)
-		{
+		
+		while (left < right) {
 			boolean shouldChangeLeft = array[left] >= 0;
 			boolean shouldChangeRight = array[right] < 0;
-			if (shouldChangeLeft && shouldChangeRight)
-			{
+			
+			if (shouldChangeLeft && shouldChangeRight) {
 				Swap(array, left, right);
 				left++;
 				right--;
-			} else
-			{
-				if (!shouldChangeLeft)
+			} 
+			else if (!shouldChangeLeft) {
 					left++;
-				else if (!shouldChangeRight)
+			}
+			else if (!shouldChangeRight) {
 					right--;
 			}
 		}
@@ -85,14 +83,15 @@ public class SplitArray {
 	public void SplitSwappingPartition(int array[]) {
 		int left = 0;
 		int right = array.length - 1;
-		while (left < right)
-		{
+		
+		while (left < right) {
 			while (array[left] < 0 && left < right)
 				left++;
+			
 			while (array[right] >= 0 && left < right)
 				right--;
-			if (left < right)
-			{
+			
+			if (left < right) {
 				Swap(array, left, right);
 				left++;
 				right--;
@@ -115,22 +114,19 @@ public class SplitArray {
 	}
 
 	private void SplitSwappingRecursiveInner(int array[], int left, int right) {
-		// System.out.println("left =" + left);
-		// System.out.println("right=" + right);
-		if (left < right)
-		{
+		if (left < right) {
 			boolean shouldChangeLeft = array[left] >= 0;
 			boolean shouldChangeRight = array[right] < 0;
-			if (shouldChangeLeft && shouldChangeRight)
-			{
+			
+			if (shouldChangeLeft && shouldChangeRight) {
 				Swap(array, left, right);
 				SplitSwappingRecursiveInner(array, left + 1, right - 1);
-			} else
-			{
-				if (!shouldChangeLeft)
-					SplitSwappingRecursiveInner(array, left + 1, right);
-				else if (!shouldChangeRight)
-					SplitSwappingRecursiveInner(array, left, right - 1);
+			} 
+			else if (!shouldChangeLeft) {
+				SplitSwappingRecursiveInner(array, left + 1, right);
+			}
+			else if (!shouldChangeRight) {
+				SplitSwappingRecursiveInner(array, left, right - 1);
 			}
 		}
 	}
